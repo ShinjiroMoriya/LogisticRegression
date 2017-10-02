@@ -19,20 +19,20 @@ def to_int(d):
 to_csv = []
 
 for n in range(tl):
-    visitor7 = sum(map(to_int, [x for x in str(df[19][n][0:7])]))
-    visitor = sum(map(to_int, [x for x in str(df[19][n])]))
+    away7 = sum(map(to_int, [x for x in str(df[19][n][0:7])]))
+    away = sum(map(to_int, [x for x in str(df[19][n])]))
     home7 = sum(map(to_int, [x for x in str(df[20][n])][0:7]))
     home = sum(map(to_int, [x for x in str(df[20][n])]))
-    if home != visitor:
-        if home > visitor:
+    if home != away:
+        if home > away:
             win = 0
         else:
             win = 1
 
-        to_csv.append([win, home7, visitor7])
+        to_csv.append([win, home7, away7])
 
 df = pd.DataFrame(to_csv)
-# pd.read_csv('unko.csv', header=None)
+
 cls = df[0]
 features = df.loc[:, 1:3]
 
@@ -59,17 +59,18 @@ print("4-3 : {0}".format(lr.predict_proba([[4, 3]])))
 
 hist = np.histogram(cls, bins=[0, 1, 2])[0]
 win_home = hist[0]
-win_visi = hist[1]
-total = win_home + win_visi
+win_away = hist[1]
+total = win_home + win_away
 home_result = win_home / total
-vis_result = win_visi / total
+away_result = win_away / total
+
 print(home_result)
-print(vis_result)
+print(away_result)
 """
 HOME
 0.530284301607
 
-VISIT
+AWAY
 0.469715698393
 """
 
